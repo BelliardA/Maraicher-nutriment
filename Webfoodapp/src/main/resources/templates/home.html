@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aliments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h3 a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        h3 a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="h2">Maraicher nutritionnel</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Calories</th>
+                    <th>Glucides</th>
+                    <th>Lipides</th>
+                    <th>Protéines</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${aliments.empty}">
+                    <td colspan="5">Aucun aliment en base de données</td>
+                </tr>
+                <tr th:each="aliment : ${aliments}">
+                    <td th:if="${aliment.name != null}"><span th:text="${aliment.name}">nom</span></td>
+                    <td><span th:text="${aliment.quantity}">quantité</span></td>
+                    <td><span th:text="${aliment.price}">prix</span></td>
+                    <td><span th:text="${aliment.calories}">calories</span></td>
+                    <td><span th:text="${aliment.carbohydrates}">glucides</span></td>
+                    <td><span th:text="${aliment.lipids}">lipides</span></td>
+                    <td><span th:text="${aliment.proteins}">protéines</span></td>
+                    <td>
+                        <a th:href="@{/updateAliment/{id}(id=${aliment.id})}">Modifier</a> |
+                        <a th:href="@{/deleteAliment/{id}(id=${aliment.id})}">Supprimer</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a th:href="@{/createAliment}">Ajout d'un nouvel aliment</a></h3>
+    </div>
+</body>
+</html>
